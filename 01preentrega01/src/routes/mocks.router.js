@@ -78,6 +78,9 @@ router.post('/generateData', async (req, res) => {
       })
     );
 
+    console.log('Usuarios creados:', createdUsers);
+    console.log('Mascotas creadas:', createdPets);
+
     res.status(201).json({
       message: 'Datos generados e insertados correctamente.',
       users: createdUsers,
