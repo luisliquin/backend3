@@ -69,6 +69,13 @@ router.post('/generateData', async (req, res) => {
 
     const createdPets = await petModel.insertMany(mockPets);
 
+    const adoptions = createdPets.map((pet) => ({
+      owner: pet.owner,
+      pet: pet._id,
+    }));
+
+    const createdAdoptions = await adoptionModel.insertMany(adoptions);
+
     await Promise.all(
       createdPets.map(async (pet) => {
         await userModel.updateOne(
@@ -80,11 +87,13 @@ router.post('/generateData', async (req, res) => {
 
     console.log('Usuarios creados:', createdUsers);
     console.log('Mascotas creadas:', createdPets);
+    console.log('Adopciones creadas:', createdAdoptions);
 
     res.status(201).json({
       message: 'Datos generados e insertados correctamente.',
       users: createdUsers,
       pets: createdPets,
+      adoptions: createdAdoptions,
     });
     
   } catch (error) {
