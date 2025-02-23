@@ -45,4 +45,8 @@ app.use('/api/adoptions',adoptionsRouter);
 app.use('/api/sessions',sessionsRouter);
 app.use("/apidocs", swaggerUiExpress.serve, swaggerUiExpress.setup(specs)); 
 
-app.listen(PORT,()=>console.log(`Listening on ${PORT}`))
+app.get("/", (req, res) => {
+    res.redirect("/apidocs");
+});
+
+app.listen(PORT,()=>console.log(`Servidor corriendo en http://localhost:${PORT}`))
