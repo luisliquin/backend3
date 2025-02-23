@@ -18,6 +18,7 @@ describe("Testing de la App Web Adoptame", () => {
             expect(status).to.equal(404); 
         })
 
+        //chequear test
         it("Traemos una adopcion por ID", async () => {
             let idAdoption = "67b9eb82185894c857fb26f7"; 
 
@@ -26,6 +27,7 @@ describe("Testing de la App Web Adoptame", () => {
             expect(_body.payload).to.have.property("_id").that.equals(idAdoption); 
         })
 
+        //chequear test
         it("Creamos una adopcion", async () => {
             let uid = "67b0b55e09bcc4e342ed03c1"; 
             let pid = "67a779da376ab335f61a0cbe"; 
@@ -33,7 +35,6 @@ describe("Testing de la App Web Adoptame", () => {
             const {status} = await requester.post(`/api/adoptions/${uid}/${pid}`);
             console.log(status); 
             expect(status).to.equal(200); 
-
         })
     })
 })

@@ -1,0 +1,138 @@
+openapi: 3.0.0
+info:
+  title: API de Usuarios
+  description: API para gestionar usuarios en el sistema.
+  version: 1.0.0
+servers:
+  - url: http://localhost:3001
+    description: Servidor de desarrollo
+
+paths:
+  /api/users:
+    get:
+      summary: Obtener todos los usuarios
+      description: Retorna una lista de usuarios almacenados en la base de datos.
+      tags:
+        - Users
+      responses:
+        "200":
+          description: Lista de usuarios obtenida correctamente.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: "success"
+                  payload:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        _id:
+                          type: string
+                          example: "60d0fe4f5311236168a109ca"
+                        first_name:
+                          type: string
+                          example: "Juan"
+                        last_name:
+                          type: string
+                          example: "Pérez"
+                        email:
+                          type: string
+                          example: "juan.perez@example.com"
+
+  /api/users/{uid}:
+    get:
+      summary: Obtener un usuario por ID
+      description: Retorna un usuario según su ID.
+      tags:
+        - Users
+      parameters:
+        - name: uid
+          in: path
+          required: true
+          schema:
+            type: string
+          description: ID del usuario a obtener.
+      responses:
+        "200":
+          description: Usuario encontrado.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: "success"
+                  payload:
+                    type: object
+                    properties:
+                      _id:
+                        type: string
+                        example: "60d0fe4f5311236168a109ca"
+                      first_name:
+                        type: string
+                        example: "Juan"
+                      last_name:
+                        type: string
+                        example: "Pérez"
+                      email:
+                        type: string
+                        example: "juan.perez@example.com"
+        "404":
+          description: Usuario no encontrado.
+
+    put:
+      summary: Actualizar un usuario
+      description: Modifica los datos de un usuario según su ID.
+      tags:
+        - Users
+      parameters:
+        - name: uid
+          in: path
+          required: true
+          schema:
+            type: string
+          description: ID del usuario a actualizar.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                first_name:
+                  type: string
+                  example: "Carlos"
+                last_name:
+                  type: string
+                  example: "García"
+                email:
+                  type: string
+                  example: "carlos.garcia@example.com"
+      responses:
+        "200":
+          description: Usuario actualizado correctamente.
+        "404":
+          description: Usuario no encontrado.
+
+    delete:
+      summary: Eliminar un usuario
+      description: Borra un usuario específico según su ID.
+      tags:
+        - Users
+      parameters:
+        - name: uid
+          in: path
+          required: true
+          schema:
+            type: string
+          description: ID del usuario a eliminar.
+      responses:
+        "200":
+          description: Usuario eliminado correctamente.
+        "404":
+          description: Usuario no encontrado.
